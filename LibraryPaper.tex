@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts,amsmath, amsthm}
+\usepackage{geometry}
+\usepackage{url}
+\usepackage{appendix}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor}
+\geometry{margin = 1.25in}
+\title{Free database of user-interactive mathematical models for infectious diseases}
+\author{}
+\date{}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+Compartmental SIR or SEIR type of models have been used extensively to study the mechanisms and dynamics of a disease for evaluating the effect of public health interventions and policies. 
+
+Hundreds of compartmental modeling based infectious papers are published every year for any given disease. At this rate the duplicity of models and analyses performed is inevitable. Repetition of the published analyses leads for literature to be harder to be tractable and indicates that researchers have been investing a lot of time in created models from scratch when there may already be published initial design and analysis.
+
+
+
+\section{Curation process}
+\begin{itemize}
+    \item Arbitrary selection of disease modeling papers with simplest possible models for a disease.
+    \item Perform and document local stability analysis
+    \item Coding the model in COPASI software so that it reproduces figures in the source paper
+    \item Upload the code to the web application created using RShiny, COPASI, ShinyCopasi and CoRC.
+\end{itemize}
+
+
+\section{Features}
+\begin{enumerate}
+    \item On the web application, users can vary the parameter values corresponding to the interventions to observe changes to the time course, stability analysis, sensitivity analysis, optimization and parameter estimation.
+    \item Access to detailed documentation of each disease with mathematical analysis and potential extensions to the model ([link here]).
+    \item Option to download the code file (COPASI or SBML format).
+    \item Option to easily download the results of the simulations.
+\end{enumerate}
+
+
+\section{Usage and Utility }
+Following are the different types of target audience and how they may benefit from the database:
+\begin{enumerate}
+    \item \textbf{Novice modelers and students}: The database provides a great set of examples for simple models for beginners. Additionally, it requires no coding experience to general results based on the models. It also provides a great initial source of literature for different types of models and interventions.
+    \item \textbf{Epidemiologists}: With merely a few clicks, one can demonstrate the effect of various interventions for different diseases without requiring any coding, mathematical or computational experience.
+    \item \textbf{Mathematical modelers}: Quick and ready to use stability analysis and sensitivity analysis programs provide an easy way to validate the results. Importantly, the COPASI based models perform these tasks fast and easily even for tediously big systems (with a large number of compartments).
+    \item \textbf{Computational modelers}: Quick calibration, optimization and estimation of parameters is possible with a variety of methods to choose from. Extending a model to include any time-varying parameters only needs a file upload. 
+    \item \textbf{Published modelers}: The curated models in the database will be used for future research increasing their visibility and utility.
+\end{enumerate}
+
+Overall, the database will increase human productivity by compiling the simplest models from literature and by speeding up the process of extending any models and analyzing them.
+
+The database also accepts requests for a particular model to be curated and/or included as well as for extensions to the existing models. We aim at making this database a collaborative project by infectious disease modelers.
+
+Apart from being a database, the process of curation of the various models provides a reproducibility check for the published results.
+
+\section{Future Direction}
+\begin{enumerate}
+    \item Include within host models
+    \item Automate adding spatial component to models
+    \item Tutorials demonstrating how different factors can easily be added and removed in a given model using COPASI
+    \item Stochastic models
+    \item Tutorial videos for using COPASI for disease models and for using the web application
+    \item Options to export to MATLAB
+    
+\end{enumerate}
+\end{document}

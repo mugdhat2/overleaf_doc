@@ -71,7 +71,7 @@
 \lfoot{\today}
 
 
-\title{Parameter estimation of the transmission probabilities of the 2015-2016 Zika outbreaks in the geopolitical regions of Brazil}
+\title{Parameter estimation of the 2015-2016 Zika outbreaks for the differences in the geopolitical regions of Brazil using COPASI}
 \author{}
 \date{}
 
@@ -82,7 +82,7 @@
 % Title must be 250 characters or less.
 \begin{flushleft}
 {\Large
-\textbf\newline{Parameter estimation of the transmission probabilities of the 2015-2016 Zika outbreaks in the geopolitical regions of Brazil} % Please use "sentence case" for title and headings (capitalize only the first word in a title (or heading), the first word in a subtitle (or subheading), and any proper nouns).
+\textbf\newline{Parameter estimation of the 2016 Zika outbreaks for the differences in the geopolitical regions of Brazil using COPASI} % Please use "sentence case" for title and headings (capitalize only the first word in a title (or heading), the first word in a subtitle (or subheading), and any proper nouns).
 }
 \newline
 % Insert author names, affiliations and corresponding author email (do not include titles, positions, or degrees).
@@ -150,11 +150,13 @@ Stefan Hoops\textsuperscript{1}
 
 
 \section*{Introduction}
-Zika virus (ZIKV) disease, although symptomatically mild, may cause severe morbidity due to microcephaly and other congenital and pregnancy problems, along with the suspected cases of Gullian-Barre Syndrome, brain and spinal cord swelling and blood disorders \cite{paixao2016history,da2017neurologic}. ZIKV, a flavivirus, can spread by the bite of \textit{Aedes} mosquitoes, through sexual contact and blood transfusions and can be passed to the fetus from an infected pregnant woman. ZIKV currently has no treatment or vaccine. Having critical associated morbidity and multiple transmission pathways, these factors lead to ZIKV's controls to heavily rely on the population and the vector management.
+Zika virus (ZIKV) disease, although symptomatically mild, may cause severe morbidity due to microcephaly and other congenital and pregnancy problems, along with the suspected cases of Gullian-Barre Syndrome, brain and spinal cord swelling and blood disorders \cite{paixao2016history,da2017neurologic}. ZIKV, a flavivirus, can spread by the bite of \textit{Aedes} mosquitoes, through sexual contact and blood transfusions and can be passed to the fetus from an infected pregnant woman. ZIKV currently has no treatment or vaccine. Critical associated morbidity and multiple transmission pathways lead to ZIKV's controls to heavily rely on the population and the vector management.
 
-The first confirmed case of ZIKV in the Americas was reported in Brazil in early 2015. Since then, it quickly spread to almost all the nations in the Americas leading to an international public health emergency. During this emergency, along with vector control and birth control, mathematical modeling to guide interventions was a major control and prevention strategy used \cite{lowe2018zika}.
+The first confirmed case of ZIKV in the Americas was reported in Brazil in early 2015. Since then, it quickly spread to almost all the nations in the Americas leading to an international public health emergency \cite{heukelbach2016zika}. During this emergency, along with vector control and birth control, mathematical modeling to guide interventions was a major control and prevention strategy used \cite{lowe2018zika}.
 
-In this retrospective study, we highlight the importance of the spatial resolution for estimating the parameters used in the mathematical models and the complexity that it entails \cite{thomas2016quantifying}. Furthermore, we assess the correlation of the obtained estimates with the known properties of the regions. In this work, using a deterministic mathematical model and the region-wise weekly Brazil ZIKV outbreak data, (a) we estimate the disease transmission coefficients for each region, (b) compare the estimates with those for the whole nation of Brazil, and, (c) identify the critical characteristics of the regions correlating with the estimates through a sensitivity analysis. 
+Dynamical modeling-based parameter estimation for infectious diseases provide a reliable tool for measuring the force of infection while accounting for the underlying mechanisms of the disease transmission \cite{overton2020using}. It is useful in identifying spatial patterns for the potency of the disease and for calibrating the optimal effect of potential interventions. However, computation of parameter estimates may get tedious due to the requirement of the understanding of mathematics, optimization, programming and the cost of software \cite{hernandez2018parameter}. COPASI \cite{hoops2006copasi} is a freely available, open source and user-friendly software developed with the aim of making the advanced modeling techniques available and accessible to researchers who may not necessarily be experts in programming or numerical methods \cite{bergmann2016piecewise}. Therefore, the Parameter Estimation tool in COPASI will be used in this paper. 
+
+In this retrospective study, we highlight the importance of the spatial resolution for estimating the parameters used in the mathematical models and the complexity that it entails \cite{thomas2016quantifying}. In summary, using a deterministic mathematical model and the region-wise weekly Brazil ZIKV outbreak data, (a) we demonstrate how COPASI, a biochemical pathway simulator, can be easily adapted to obtain accurate parameter estimates very quickly, (b) we estimate the disease transmission coefficients for each geopolitical region of Brazil, (b) compare the estimates with those for the whole nation of Brazil, and, (c) identify the critical characteristics of the regions correlating with the estimates through a sensitivity analysis. 
 
 
 % \paragraph{Research Questions}
@@ -169,10 +171,11 @@ In this retrospective study, we highlight the importance of the spatial resoluti
     
 % \end{enumerate}
 \section*{Materials and methods}
-\subsection*{Model}
+In this section we present the mathematical model for Zika used, the available Zika prevalence data for each geopolitical region of Brazil, the computation of the parameter estimates and the local sensitivity analysis for analyzing the effect of various socio-economic and ecological characteristics on the obtained estimates.
+\subsection*{Disease model}
 We use a compartmental vector-host model similar to previously published models \cite{bonyah2017theoretical,moreno2017role,suparit2018mathematical,dantas2018calibration}. The model takes into account the human to human infection as well as the vector (mosquito) to human transmission. The total human population, $N_{H}(t),$ is divided into the following classes: susceptible humans $S_{H}(t),$ exposed humans $E_{H}(t),$ infected humans $I_{H}(t),$ and recovered humans $R_{H}(t),$ so that $N_{H}(t)=S_{H}+E_{H}+I_{H}+R_{H}$. The mosquito population, $N_{V}(t),$ is partitioned into susceptible vector $S_{V}(t),$ exposed vector $E_{V}(t)$ and infected mosquito $I_{V}(t)$. Thus, $N_{V}=S_{V}+E_{V}+I_{V}$.
 
-The model considers the processes of birth and death of both humans and mosquitoes, infection transmission to humans due to infected humans and infected mosquitoes, infection transmission to he mosquitoes due to infected humans, extrinsic and intrinsic incubation in vectors and humans respectively, and recovery in humans. The respective rates are described along with point estimates in the Table \ref{tab:zika_params}. The model is described by the following system of equations
+The model considers the processes of birth and death of both humans and mosquitoes, infection transmission to humans due to infected humans and infected mosquitoes, infection transmission to the mosquitoes due to infected humans, extrinsic and intrinsic incubation in vectors and humans respectively, and recovery in humans. The rates for all these processes are described along with point estimates in the Table \ref{tab:zika_params}. The model is described by the following system of equations
 
 % \begin{equation} \label{eq:zika_model}
 % \begin{array}{l}
@@ -229,15 +232,50 @@ We express the human-to-human transmission coefficient ($\rho \beta_h$) with res
     \end{adjustwidth}
 \end{table}
 
+\subsection*{Local stability analysis}
+We use the Next Generation Matrix method to calculate the basic reproduction number $R_0$ for Brazil and for each of its regions. We assume that the total human and mosquito populations are at the steady state and thus it can be easily shown that $N_h = \Lambda_h/\mu_h$ and $N_V = \Lambda_V/\mu_V$ at equilibrium.
+
+The disease free equilibrium (DFE) is given by $\{N_h,0,0,0,N_V,0,0\}$ for $\{S_h, E_h, I_h, R_h, S_V, E_V, I_V\}$ set of variables, and the components of the next generation matrix are
+$$
+F=\left(\begin{array}{cccc}
+0 & \frac{\rho \beta_{h} \Lambda_{h}}{\mu_{h}} & 0 & \frac{\beta_{h} \Lambda_{h}}{\mu_{h}} \\
+0 & 0 & 0 & 0 \\
+0 & \frac{\beta_{v} \Lambda_{v}}{\mu_{V}} & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{array}\right), V=\left(\begin{array}{cccc}
+k_{1} & 0 & 0 & 0 \\
+-\chi_{h} & k_{2} & 0 & 0 \\
+0 & 0 & k_{3} & 0 \\
+0 & 0 & -\delta_{V} & \mu_{V}
+\end{array}\right)
+$$
+where $k_{1}=\mu_{h}+\chi_{h}, k_{2}=\left(\mu_{h}+\gamma\right)$ and $k_{3}=\left(\mu_{V}+\delta_{V}\right)$. The basic reproductive number of model is the spectral radius of the matrix $FV^{-1}$
+$$\mathcal{R}_{0}=\frac{\rho \beta_{h} \Lambda_{h} \chi_{h}}{2 \mu_{h} k_{1} k_{2}}+\sqrt{\frac{\rho^{2} \beta_{h}^{2} \Lambda_{h}^{2} \chi_{h}^{2}}{4 \mu_{h}^{2} k_{1}^{2} k_{2}^{2}}+\frac{\beta_{h} \Lambda_{h} \chi_{h} \beta_{V} \delta_{V} \Lambda_{V}}{\mu_{h} \mu_{V}^{2} k_{1} k_{2} k_{3}}}.$$
+
+
+
+\subsection*{Parameter estimation}
+The  Ministry of Health/SVS (Notifiable Diseases Information System) of Brazil has publicly available record of weekly Zika cases by year for each geopolitical region of Brazil \cite{data}.
+We estimate the values of the vector-to-human and the human-to-vector transmission coefficients ($\beta_h$ and $\beta_V$ respectively) for each region of Brazil as well as for all of the Brazil using the recursive Differential Evolution method using the COPASI 4.30 software (\url{copasi.org}). The estimates are highly sensitive to the quantities initial condition ($E_H(0)$) and the vector recruitment rate ($\Lambda_V$), the values for which are not known, therefore, we estimate those too simultaneously. The best-fit vector density for each region is calculated as a product of the steady-state vector population size ($N_V$)  divided by the area of the region in square kilometers.  
+
+We assume that all the parameters that are not being estimated are fixed and are same for all the regions. The assumptions used for initial values are as reported in Table \ref{tab:zika_init}.
+% \begin{enumerate}
+% %    \item No interventions (that is, $u_1 = u_2 = u_3 = 0$)
+%     \item Initial total human population: Region-wise 2016 population estimates as shown in Table \ref{tab:zika_pop}.
+%     \item Initial total vector population: Ten times human population
+%     \item Initially infected humans: Initial value from Brazil outbreak data (Table \ref{tab:zika_data})
+%     \item Initially infected vectors: Twice the initially infected humans
+% \end{enumerate}
+
 \begin{table}[]
     \centering
-     \caption{\textbf{Initial condition}}
+     \caption{\textbf{Initial conditions}}
     \begin{tabular}{lc}\hline
         State Variable & Initial value  \\\hline
         Total human population $N_h(0)$    & As in Table \ref{tab:zika_pop} \\
         Total vector population $N_V(0)$ & $mN_h(0)$\\
         Infectious humans $I_h(0)$ & Week 0 in Table \ref{tab:zika_data}\\
-        Infectious vectors $I_V(0$ & $mI_h(0)$\\
+        Infectious vectors $I_V(0)$ & $mI_h(0)$\\
         Exposed humans $E_h(0)$ & Estimated \\
         Exposed vectors $E_V(0)$ & 0\\
         Recovered humans $R_h(0)$ & 0\\
@@ -249,18 +287,6 @@ We express the human-to-human transmission coefficient ($\rho \beta_h$) with res
     \label{tab:zika_init}
 \end{table}
 
-\subsection*{Parameter Estimation}
-
-We estimate the values of the vector-to-human and the human-to-vector transmission coefficients ($\beta_h$ and $\beta_V$ respectively) for each region of Brazil as well as for all of the Brazil. The estimates are highly sensitive to the quantities initial condition ($E_H(0)$) and the vector recruitment rate ($\Lambda_V$) whose values are not known, we estimate those too through the recursive Differential Evolution method using the COPASI 4.30 software (\url{copasi.org}).
-
-We assume that all the parameters not being estimated are fixed and same for all the regions. Following are the assumptions used for initial values:
-\begin{enumerate}
-%    \item No interventions (that is, $u_1 = u_2 = u_3 = 0$)
-    \item Initial total human population: Region-wise 2016 population estimates as shown in Table \ref{tab:zika_pop}.
-    \item Initial total vector population: Ten times human population
-    \item Initially infected humans: Initial value from Brazil outbreak data (Table \ref{tab:zika_data})
-    \item Initially infected vectors: Twice the initially infected humans
-\end{enumerate}
 
 \section*{Results}
 % \begin{table}[!ht]
@@ -285,7 +311,7 @@ We assume that all the parameters not being estimated are fixed and same for all
 \begin{table}[!ht]
 \begin{adjustwidth}{-2.25in}{0in}
     \centering
-    \caption{\textbf{Best fit parameter estimates of disease transmission coefficients $\beta_h$ (vector-to-human; rate per mosquito per day) and $\beta_V$ (human-to-vector; rate per human per day) by region} }
+    \caption{\textbf{Best fit parameter estimates of disease transmission coefficients $\beta_h$ (vector-to-human; rate per mosquito per day), $\beta_V$ (human-to-vector; rate per human per day), $\Lambda_V$ (vector recruitment rate; vectors per day) and initial number of \textit{Exposed} humans ($E_H(0)$) by region} }
     \begin{tabular}{|l|c|c|c|c|} \hline
      \textbf{Region }  &  \textbf{$\beta_h$ estimate (S.D.)} & \textbf{$\beta_V$ estimate (S.D.)} & \textbf{$\Lambda_V$ estimate (S.D.)} & \textbf{$E_H(0)$ estimate (S.D.)}\\ \hline
      North    & 2.42e-12 (7.32e-14) & 7.99e-05 (2.68e-05) & 73463.80 (16974.80) & 66.29 (57.84)\\\hline
@@ -337,24 +363,71 @@ We assume that all the parameters not being estimated are fixed and same for all
 \end{table}
 
 \begin{figure}
-\centering
-\caption{\textbf{PRCC for the estimates of transmission coefficients $\beta_h$ (vector-to-human) and $\beta_V$ (human-to-vector) }. A: Population. B:	Population density. C:	Mosquito density. D:	Outbreak size. E: GDP (USD billion).}
-\begin{subfigure}[b]{0.45\textwidth}
+     \centering
+     \begin{subfigure}[b]{0.3\textwidth}
          \centering
-         \includegraphics[width=\textwidth]{Zika_PE_figs/beta_h_PRCC.jpg}
-         \caption{$\beta_h$ }
-         \label{fig:betah_prcc}
+         \includegraphics[width=\textwidth]{Zika_PE_figs/N.png}
+         \caption{North}
+         \label{fig:north_PE}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Zika_PE_figs/NE.png}
+         \caption{Northeast}
+         \label{fig:NE_PE}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Zika_PE_figs/SE.png}
+         \caption{Southeast}
+         \label{fig:SE_PE}
      \end{subfigure}
       \hfill
-     \begin{subfigure}[b]{0.45\textwidth}
+     \begin{subfigure}[b]{0.3\textwidth}
          \centering
-         \includegraphics[width=\textwidth]{Zika_PE_figs/beta_V_PRCC.jpg}
-         \caption{$\beta_V$}
-         \label{fig:betav_prcc}
+         \includegraphics[width=\textwidth]{Zika_PE_figs/S.png}
+         \caption{South}
+         \label{fig:south_PE}
      \end{subfigure}
-        
-        \label{fig:PRCC}
+      \hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Zika_PE_figs/CW.png}
+         \caption{Central West}
+         \label{fig:CW_PE}
+     \end{subfigure}
+      \hfill
+     \begin{subfigure}[b]{0.3\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Zika_PE_figs/B.png}
+         \caption{Brazil}
+         \label{fig:brazil_PE}
+     \end{subfigure}
+        \caption{Model fit to data with best-fit parameters from Table \ref{tab:zika_param_est}. Error stands for the weighted error (residuals).}
+        \label{fig:PE_figs}
 \end{figure}
+
+% \begin{figure}
+% \centering
+% \caption{\textbf{PRCC for the estimates of transmission coefficients $\beta_h$ (vector-to-human) and $\beta_V$ (human-to-vector) }. A: Population. B:	Population density. C:	Mosquito density. D:	Outbreak size. E: GDP (USD billion).}
+% \begin{subfigure}[b]{0.45\textwidth}
+%          \centering
+%          \includegraphics[width=\textwidth]{Zika_PE_figs/beta_h_PRCC.jpg}
+%          \caption{$\beta_h$ }
+%          \label{fig:betah_prcc}
+%      \end{subfigure}
+%       \hfill
+%      \begin{subfigure}[b]{0.45\textwidth}
+%          \centering
+%          \includegraphics[width=\textwidth]{Zika_PE_figs/beta_V_PRCC.jpg}
+%          \caption{$\beta_V$}
+%          \label{fig:betav_prcc}
+%      \end{subfigure}
+        
+%         \label{fig:PRCC}
+% \end{figure}
 
 \section*{Discussion}
 \paragraph{Limitations.} We assume that each region is isolated from the others during the calibration of the model for each region (that is, no movement of people or mosquitoes between the regions). No vertical transmission (since we simulate for only a year). No temperature dependence of mosquito-related processes. No vertical transmission.
@@ -397,52 +470,7 @@ We assume that all the parameters not being estimated are fixed and same for all
     \caption{Brazil data. Source: \url{http://tabnet.datasus.gov.br/cgi/tabcgi.exe?sinannet/cnv/zikabr.def} (Accessed: March 2021)}
     \label{tab:zika_data}
 \end{table}
-\begin{figure}
-     \centering
-     \begin{subfigure}[b]{0.3\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{Zika_PE_figs/north_PE_0419.png}
-         \caption{North}
-         \label{fig:north_PE}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[b]{0.3\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{Zika_PE_figs/northeast_PE_0419.png}
-         \caption{Northeast}
-         \label{fig:NE_PE}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[b]{0.3\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{Zika_PE_figs/southeast_PE_0419.png}
-         \caption{Southeast}
-         \label{fig:SE_PE}
-     \end{subfigure}
-      \hfill
-     \begin{subfigure}[b]{0.3\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{Zika_PE_figs/south_PE_0419.png}
-         \caption{South}
-         \label{fig:south_PE}
-     \end{subfigure}
-      \hfill
-     \begin{subfigure}[b]{0.3\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{Zika_PE_figs/centralwest_PE_0419.png}
-         \caption{Central West}
-         \label{fig:CW_PE}
-     \end{subfigure}
-      \hfill
-     \begin{subfigure}[b]{0.3\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{Zika_PE_figs/brazil_PE_0419.png}
-         \caption{Brazil}
-         \label{fig:brazil_PE}
-     \end{subfigure}
-        \caption{Model fit to data with parameters from Tables \ref{tab:zika_param_est} and \ref{tab:param-est-2}}
-        \label{fig:PE_figs}
-\end{figure}
+
 \textbf{Best fit total vector population at equilibrium:}
 
 North: 1.75968e+08

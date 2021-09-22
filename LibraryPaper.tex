@@ -22,18 +22,13 @@
 \maketitle
 
 \section{Introduction}
-Compartmental SIR or SEIR type of models have been used extensively to study the mechanisms and dynamics of a disease for evaluating the effect of public health interventions and policies. 
-
-Hundreds of compartmental modeling based infectious papers are published every year for any given disease. At this rate the duplicity of models and analyses performed is inevitable. Repetition of the published analyses leads for literature to be harder to be tractable and indicates that researchers have been investing a lot of time in created models from scratch when there may already be published initial design and analysis.
-
-
-
+Compartmental SIR or SEIR models have been used extensively to study the mechanisms and dynamics of a disease for evaluating the effect of public health interventions and policies. Hundreds of compartmental model based infectious disease papers are often published every year for given diseases. With so many efforts using the same basic model type, for the same disease, and running the same types of analyses, a lot of duplicated effort is inevitable. This also adds to the time and effort consumers of the literature need to spend in finding new information about a popularly modeled disease. In this work, we use well-established tools and standards to provide base models for common classes of diseases, using relevant modern disease examples. The tools also provide, built-in, powerful analysis functionality. Our idea and hope is to make it easy for a researcher to start with an existing model, rather than creating one from scratch. This derived model ought to then be easier for others researcher to test, modify, or extend further, because it will be captured in a standard transfer format.
 
 \section{Curation process}
 \begin{itemize}
-    \item Arbitrary selection of disease modeling papers with simplest possible models for a disease.
-    \item Perform and document local stability analysis
-    \item Coding the model in COPASI software so that it reproduces figures in the source paper
+    \item Select disease modeling papers with a simple minimal model for a given example disease of a type.
+    \item Perform and document local stability analysis.
+    \item Encode the model in COPASI software so that it reproduces figures in the source paper.
     \item Upload the code to the web application created using RShiny, COPASI, ShinyCopasi and CoRC.
 \end{itemize}
 
@@ -48,20 +43,16 @@ Hundreds of compartmental modeling based infectious papers are published every y
 
 
 \section{Usage and Utility }
-Following are the different types of target audience and how they may benefit from the database:
+The following summarizes how different classes of users might find this library and associated tools useful, as well as the general benefit.
 \begin{enumerate}
-    \item \textbf{Novice modelers and students}: The database provides a great set of examples for simple models for beginners. Additionally, it requires no coding experience to general results based on the models. It also provides a great initial source of literature for different types of models and interventions.
+    \item \textbf{Novice modelers and students}: The database provides a great set of examples for simple models for beginners. Additionally, it requires no coding experience to generate results based on the models. It also provides a great initial source of literature for different types of models and interventions.
     \item \textbf{Epidemiologists}: With merely a few clicks, one can demonstrate the effect of various interventions for different diseases without requiring any coding, mathematical or computational experience.
     \item \textbf{Mathematical modelers}: Quick and ready to use stability analysis and sensitivity analysis programs provide an easy way to validate the results. Importantly, the COPASI based models perform these tasks fast and easily even for tediously big systems (with a large number of compartments).
     \item \textbf{Computational modelers}: Quick calibration, optimization and estimation of parameters is possible with a variety of methods to choose from. Extending a model to include any time-varying parameters only needs a file upload. 
     \item \textbf{Published modelers}: The curated models in the database will be used for future research increasing their visibility and utility.
 \end{enumerate}
 
-Overall, the database will increase human productivity by compiling the simplest models from literature and by speeding up the process of extending any models and analyzing them.
-
-The database also accepts requests for a particular model to be curated and/or included as well as for extensions to the existing models. We aim at making this database a collaborative project by infectious disease modelers.
-
-Apart from being a database, the process of curation of the various models provides a reproducibility check for the published results.
+Requests can be made for a particular model to be curated and/or included as well as for extensions to the existing models. We aim at making this database a collaborative project by infectious disease modelers. Rather than simply being a(nother) repository for models, the curation process also provides a reproduce-ability check for published results.
 
 \section{Future Direction}
 \begin{enumerate}
